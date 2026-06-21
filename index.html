@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ron Jhon Kurt Diego — Computer Science Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="name">RON JHON KURT DIEGO</span>
+            <span class="title">COMPUTER SCIENCE STUDENT</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#techstack">Tech Stack</a>
+            <a href="#experience">Experience</a>
+            <a href="mailto:diegoronjhonkurt@gmail.com" class="btn-cta">Get in Touch</a>
+            <button id="adminToggle" onclick="triggerAdminLogin()" aria-label="Admin Access" class="secret-trigger-zone"></button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>I'm a computer science student who is passionate about creating innovative solutions at the intersection of technology and design.</h1>
+        </section>
+
+        <section id="work" class="works-section">
+            <div class="section-header-flex">
+                <div class="title-with-controls">
+                    <h2 class="section-title" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">Selected Works <span class="arrow">→</span></h2>
+                    <div class="slider-arrows">
+                        <button class="slider-arrow prev" onclick="scrollSlider('left')" aria-label="Scroll Left">⟵</button>
+                        <button class="slider-arrow next" onclick="scrollSlider('right')" aria-label="Scroll Right">⟶</button>
+                    </div>
+                </div>
+                <button class="admin-btn add-btn admin-controls-ui" id="addWorkBtn" onclick="openProjectModal()">+ Add Project</button>
+            </div>
+
+            <div class="horizontal-scroll-wrapper" id="scrollContainer">
+                <div class="works-grid" id="worksGridContainer"></div>
+            </div>
+        </section>
+
+        <section id="techstack" class="tech-section">
+            <div class="section-header-flex">
+                <h2 class="section-title">Tech Stack <span class="arrow">→</span></h2>
+            </div>
+            <div class="tech-container" id="techContainer"></div>
+        </section>
+
+        <section id="experience" class="exp-section">
+            <div class="section-header-flex">
+                <h2 class="section-title">Experience <span class="arrow">→</span></h2>
+                <button class="admin-btn add-btn admin-controls-ui" id="addExpBtn" onclick="openExperienceModal()">+ Add Experience</button>
+            </div>
+            <div class="exp-timeline" id="expTimelineContainer"></div>
+        </section>
+
+        <section id="certifications" class="cert-section">
+            <div class="section-header-flex">
+                <h2 class="section-title">Certifications <span class="arrow">→</span></h2>
+            </div>
+            <div class="cert-container" id="certContainer"></div>
+        </section>
+    </main>
+
+    <div id="exportPanel" class="admin-panel-console" style="display: none;">
+        <h3>Admin Controls Active</h3>
+        <p>Changes are saved locally. Click below to copy your raw updated HTML data to save permanently into your code editor index file:</p>
+        <button onclick="exportUpdatedHTML()" class="panel-action-btn">Copy Updated Data Code</button>
+        <button onclick="logoutAdmin()" class="panel-action-btn logout">Lock Dashboard</button>
+    </div>
+
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Verification Required</h3>
+                <button class="modal-close" onclick="closeModal('authModal')">×</button>
+            </div>
+            <p class="modal-desc">Enter Administration Key Signature Passphrase:</p>
+            <div class="modal-body">
+                <input type="password" id="adminPasswordInput" placeholder="••••••••" autocomplete="current-password">
+                <div id="authErrorMsg" class="modal-error-text"></div>
+                <button onclick="submitAdminPassword()" class="panel-action-btn">Verify Identity</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="projectModalTitle">Add Project</h3>
+                <button class="modal-close" onclick="closeModal('projectModal')">×</button>
+            </div>
+            <p class="modal-desc">Update structural matrix payload data details:</p>
+            <div class="modal-body">
+                <input type="hidden" id="projectEditId">
+                <label class="modal-label">Project Title / Label Reference</label>
+                <input type="text" id="projectTitleInput">
+                <label class="modal-label">Context Summary Description</label>
+                <textarea id="projectDescInput" rows="4"></textarea>
+                <button onclick="submitProjectForm()" class="panel-action-btn" style="margin-top: 10px;">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="experienceModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="expModalTitle">Add Experience</h3>
+                <button class="modal-close" onclick="closeModal('experienceModal')">×</button>
+            </div>
+            <p class="modal-desc">Update operational trajectory timeline attributes:</p>
+            <div class="modal-body">
+                <input type="hidden" id="expEditId">
+                <label class="modal-label">Timeline Range Bounds</label>
+                <input type="text" id="expDateInput">
+                <label class="modal-label">Corporate Enterprise Entity</label>
+                <input type="text" id="expCompanyInput">
+                <label class="modal-label">Functional Assignment Title</label>
+                <input type="text" id="expRoleInput">
+                <label class="modal-label">Job Assignment Context Summary</label>
+                <textarea id="expDescInput" rows="4"></textarea>
+                <button onclick="submitExperienceForm()" class="panel-action-btn" style="margin-top: 10px;">Save Structural Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="techModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Insert Tech Stack Element</h3>
+                <button class="modal-close" onclick="closeModal('techModal')">×</button>
+            </div>
+            <p class="modal-desc">Inject a fresh target string title parameter token payload node item:</p>
+            <div class="modal-body">
+                <input type="hidden" id="techCategoryIndex">
+                <label class="modal-label">Tag Title Value Token</label>
+                <input type="text" id="techTagInput">
+                <button onclick="submitTechTagForm()" class="panel-action-btn" style="margin-top: 10px;">Inject Tag Node</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmDeleteModal" class="modal-overlay">
+        <div class="modal-card" style="border-color: rgba(255, 74, 74, 0.2);">
+            <div class="modal-header">
+                <h3 style="color: #ff4a4a;">Structural Deletion Threat</h3>
+                <button class="modal-close" onclick="closeModal('confirmDeleteModal')">×</button>
+            </div>
+            <p class="modal-desc" id="deleteWarningMessage">Are you completely certain you want to clear this item permanently?</p>
+            <div class="modal-body" style="display: flex; gap: 12px; margin-top: 10px;">
+                <button onclick="executeConfirmedDelete()" class="panel-action-btn logout" style="margin: 0; background: rgba(255, 74, 74, 0.1);">Wipe Log Record</button>
+                <button onclick="closeModal('confirmDeleteModal')" class="panel-action-btn" style="margin: 0; background: #2a2c30; color: #fff;">Cancel Action</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact" class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:diegoronjhonkurt@gmail.com" class="footer-email">diegoronjhonkurt@gmail.com</a>
+            </div>
+            <div class="footer-col">
+                <h4>Links</h4>
+                <a href="#work">Projects</a>
+                <a href="#techstack">Stack</a>
+                <a href="#experience">Experience</a>
+            </div>
+            <div class="footer-col text-right">
+                <a href="mailto:diegoronjhonkurt@gmail.com" style="text-decoration: none;">
+                    <div class="circle-cta">
+                        <span>Get In<br>Touch</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
