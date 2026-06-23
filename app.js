@@ -2,29 +2,33 @@
 const defaultProjects = [
     { 
         id: 1, 
-        title: "Zero-Based Budgeting & Financial Prediction System", 
+        title: "BudgetWise AI", 
         desc: "A machine learning-based mobile-first system that enhances financial discipline through zero-based budgeting and predictive nudging. Built using Flutter, SQLite, and Python for backend processing—including NLP transaction parsing and ARIMA spending behavior forecasting." ,
-        image: "Images/Diego_1-COSC101-Laboratory.png",
-        comingSoon: true
+        link: "https://budgetwise-ai-fintec-y8ju.bolt.host/",
+        linkLabel: "View Prototype",
+        image: "images/budgetwiseai.png",
     },
     { 
         id: 2, 
         title: "Descent: A 2D Horror Survival Puzzle Game", 
         desc: "A 2D top-down survival horror game where players explore a dark university building, solve puzzles, and avoid hostile enemies to escape. Developed using Godot 4.6 for programming/gameplay systems and Piskel for pixel-art assets and animations.",
+        image: "images/descent.png",
         comingSoon: true
     },
     { 
         id: 3, 
         title: "QR Attendance Tracking System", 
         desc: "A QR-based attendance tracking system that enables students and professors to efficiently manage class attendance through real-time QR code scanning, event management, attendance monitoring, and automated reporting. Engineered using React, TypeScript, and Supabase.",
-        link: "https://qr-attendance-tracker-nu.vercel.app/"
+        link: "https://qr-attendance-tracker-nu.vercel.app/",
+        image: "images/qrattandancetracker.png"
     },
     { 
         id: 4, 
         title: "Siloam Day Spa Management System", 
         desc: "A comprehensive enterprise management system designed to assist spa employees in handling sales tracking, inventory management, employee records, billing metrics, and client scheduling operations. Built using Java, JavaScript, MySQL, CSS, and PHP.",
         link: "https://github.com/diegoronjhonkurt/TriSpa",
-        linkLabel: "Source Code"
+        linkLabel: "Source Code",
+        image: "images/siloamdayspa.png"
     }
 ];
 
@@ -40,14 +44,14 @@ const defaultCertifications = [
         id: 1,
         title: "Introduction to Cybersecurity",
         issuer: "Cisco Networking Academy",
-        badge: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
+        badge: "images/I2CS__1_.png",
         verified: true
     },
     {
         id: 2,
         title: "Cyber Threat Management",
         issuer: "Cisco Networking Academy",
-        badge: "image.png",
+        badge: "images/cyber-threat-management.png",
         verified: true
     }
 ];
@@ -100,7 +104,7 @@ function renderPortfolio() {
     projects.forEach(p => {
         worksGrid.innerHTML += `
             <div class="project-card">
-                <div class="image-placeholder">
+                <div class="image-placeholder" ${p.image ? `style="background-image: url('${p.image}'); background-size: cover; background-position: center; cursor: zoom-in;" onclick="openLightbox('${p.image}')"` : ''}>
                     ${p.comingSoon ? `<button class="project-link-btn" disabled>Coming Soon</button>` : p.link ? `<a href="${p.link}" target="_blank" class="project-link-btn">${p.linkLabel || 'View Project'} →</a>` : ''}
                 </div>
                 <h3>${p.title}</h3>
@@ -423,3 +427,18 @@ function scrollSlider(direction) {
         container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
 }
+
+// Lightbox
+function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    lb.classList.add('active');
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+}
+
+window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+});
