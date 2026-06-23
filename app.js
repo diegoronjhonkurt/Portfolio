@@ -105,7 +105,7 @@ function renderPortfolio() {
         worksGrid.innerHTML += `
             <div class="project-card">
                 <div class="image-placeholder" ${p.image ? `style="background-image: url('${p.image}'); background-size: cover; background-position: center; cursor: zoom-in;" onclick="openLightbox('${p.image}')"` : ''}>
-                    ${p.comingSoon ? `<button class="project-link-btn" disabled>Coming Soon</button>` : p.link ? `<a href="${p.link}" target="_blank" class="project-link-btn">${p.linkLabel || 'View Project'} →</a>` : ''}
+                    ${p.comingSoon ? `<button class="project-link-btn" disabled onclick="event.stopPropagation()">Coming Soon</button>` : p.link ? `<a href="${p.link}" target="_blank" class="project-link-btn" onclick="event.stopPropagation()">${p.linkLabel || 'View Project'} →</a>` : ''}
                 </div>
                 <h3>${p.title}</h3>
                 <p>${p.desc}</p>
